@@ -11,6 +11,7 @@ export const BloodGroupEnum = z.enum([
   "O_NEG",
 ]);
 
+
 export const GenderEnum = z.enum(["MALE", "FEMALE", "OTHER"]);
 
 export const Role = {
@@ -35,19 +36,6 @@ export type TinitialState = {
   accessToken: null | string;
 };
 
-export const BloodType = {
-  A_POS: "A_POS",
-  A_NEG: "A_NEG",
-  B_POS: "B_POS",
-  B_NEG: "B_NEG",
-  O_POS: "O_POS",
-  O_NEG: "O_NEG",
-  AB_POS: "AB_POS",
-  AB_NEG: "AB_NEG",
-} as const;
-
-// This results in: "A_POSITIVE" | "A_NEGATIVE" | ...
-export type BloodTypeValues = (typeof BloodType)[keyof typeof BloodType];
 
 export const SignUpSchema = z.object({
   fullName: z

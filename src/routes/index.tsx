@@ -9,7 +9,7 @@ import LandingPage from "@/pages/landing-page";
 import AllRequestPage from "@/pages/all-request-page";
 import DashboardLayout from "@/layout/dashboard-layout";
 import BloodRequestPage from "@/pages/blood-request-page";
-import RequestDetail from "@/feature/blood-request/components/request-detail";
+
 
 export const router = createBrowserRouter([
   {
@@ -47,10 +47,6 @@ export const router = createBrowserRouter([
       {
         path: "all-request",
         element: <AllRequestPage />,
-      },
-      {
-        path: "all-request/:id",
-        element: <RequestDetail />,
       },
       
     ],

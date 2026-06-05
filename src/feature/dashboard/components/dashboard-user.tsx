@@ -41,7 +41,7 @@ export function DashboardUser() {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
   const { user, isLoading, logout } = useAuthStore();
-  const avatar = generateAvatar(user?.name || "RedLink");
+  const avatar = generateAvatar(user?.fullName || "RedLink");
 
   const handleLogout = () => {
     logout(navigate); // Pass the hook result here
@@ -69,12 +69,12 @@ export function DashboardUser() {
                 size="lg"
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={avatar} alt={user?.name} />
+                  <AvatarImage src={avatar} alt={user?.fullName} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
 
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate font-medium">{user?.fullName}</span>
                   <span className="truncate text-xs">{user?.email}</span>
                 </div>
 
@@ -90,11 +90,11 @@ export function DashboardUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={avatar} alt={user?.name} />
+                  <AvatarImage src={avatar} alt={user?.fullName} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate font-medium">{user?.fullName}</span>
                   <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>

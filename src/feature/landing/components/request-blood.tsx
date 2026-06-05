@@ -1,195 +1,207 @@
+// import { motion, AnimatePresence } from "framer-motion";
+// import { Button } from "@/components/ui/button";
+// import { AlertCircle, Droplets, ArrowRight } from "lucide-react";
+// import { Link } from "react-router";
+
+// export function RequestBlood() {
+//   return (
+//     <section
+//       id="request"
+//       className="py-16 px-4 sm:px-6 lg:px-8 bg-background relative overflow-hidden min-h-[85vh] flex items-center">
+//       {/* Dynamic Background Blur Deco */}
+//       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
+//       <div className="max-w-5xl mx-auto w-full relative z-10">
+//         <AnimatePresence mode="wait">
+//           <motion.div
+//             key="landing"
+//             initial={{ opacity: 0, y: 15 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             exit={{ opacity: 0, y: -15 }}
+//             transition={{ duration: 0.4, ease: "easeInOut" }}
+//             className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+//             {/* Left Side: Visual / Image Container */}
+//             <div className="relative group rounded-2xl overflow-hidden shadow-xl border border-border aspect-[4/3] md:aspect-square bg-muted flex items-center justify-center">
+//               {/* Fallback designed placeholder representing a clinical environment. Swap src with your asset URI */}
+//               <img
+//                 src="https://images.unsplash.com/photo-1615461066841-6116ecdacd6f?q=80&w=1000&auto=format&fit=crop"
+//                 alt="Blood Bank Logistics and Medical Assistance"
+//                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+//               />
+//               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+//               <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-sm p-4 rounded-xl border border-border flex items-center gap-3">
+//                 <div className="bg-destructive/10 p-2 rounded-lg">
+//                   <Droplets className="w-5 h-5 text-destructive animate-pulse" />
+//                 </div>
+//                 <div>
+//                   <p className="text-xs font-bold text-foreground">
+//                     Verified Storage Network
+//                   </p>
+//                   <p className="text-[11px] text-muted-foreground">
+//                     Real-time emergency tracking active
+//                   </p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Right Side: Informational Core Text */}
+//             <div className="flex flex-col justify-center space-y-6">
+//               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary self-start px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase">
+//                 <AlertCircle className="w-3.5 h-3.5" /> Emergency Dispatch
+//               </div>
+
+//               <h2 className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-none">
+//                 Need Blood Urgent? <br />
+//                 <span className="text-primary font-medium text-3xl sm:text-4xl">
+//                   We bridge the gap instantly.
+//                 </span>
+//               </h2>
+
+//               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+//                 Access our prioritized system linking registered medical
+//                 facilities directly to neighborhood donor registries. Submit
+//                 immediate verification credentials to mobilize emergency
+//                 logistics support.
+//               </p>
+
+//               <div className="border-t border-border/60 pt-4 flex items-center gap-4 text-xs text-muted-foreground">
+//                 <div>
+//                   <span className="block text-lg font-bold text-foreground">
+//                     24/7
+//                   </span>{" "}
+//                   Dispatch Lines
+//                 </div>
+//                 <div className="w-px h-8 bg-border" />
+//                 <div>
+//                   <span className="block text-lg font-bold text-foreground">
+//                     &lt; 15m
+//                   </span>{" "}
+//                   Response Time
+//                 </div>
+//               </div>
+
+//               {/* Primary Transition Action Button */}
+//               <Link to={"/request-blood"}>
+//                 <Button
+//                   icon={
+//                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+//                   }
+//                   iconPosition="end">
+//                   Initiate Blood Request
+//                 </Button>
+//               </Link>
+//             </div>
+//           </motion.div>
+//         </AnimatePresence>
+//       </div>
+//     </section>
+//   );
+// }
+
 "use client";
-import { motion } from "framer-motion";
+
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Droplets } from "lucide-react";
-import { useState } from "react";
+import { AlertCircle, Droplets, ArrowRight } from "lucide-react";
+import { Link } from "react-router";
+import blooddonatesvg from "../../../assets/RequestForBlood.svg";
 
 export function RequestBlood() {
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-
-  const bloodTypes = [
-    { type: "O+", desc: "Universal Donor", available: "450 units" },
-    { type: "O-", desc: "Emergency Supply", available: "320 units" },
-    { type: "A+", desc: "Most Common", available: "380 units" },
-    { type: "B+", desc: "High Demand", available: "290 units" },
-    { type: "AB+", desc: "Universal Recipient", available: "180 units" },
-    { type: "B-", desc: "Special Need", available: "150 units" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
     <section
       id="request"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-background relative overflow-hidden">
-      <motion.div
-        animate={{ y: [0, 30, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-        className="absolute top-20 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl"
-      />
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-background relative overflow-hidden min-h-[85vh] flex items-center">
+      {/* Dynamic Ambient Background Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-125 h-125 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16">
-          <div className="inline-flex items-center justify-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            <Droplets className="w-4 h-4" />
-            Need Blood?
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 text-balance">
-            Request Blood Now
-          </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto text-balance">
-            Urgent blood requests for hospitals and patients in need
-          </p>
-        </motion.div>
+      <div className="max-w-5xl mx-auto w-full relative z-10">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="landing"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Side: Visual / Image Container */}
+            <div className="relative group rounded-2xl overflow-hidden shadow-2xl border border-border/80 aspect-4/3 md:aspect-square bg-muted flex items-center justify-center transition-all duration-300 hover:border-primary/30">
+              <img
+                src={blooddonatesvg}
+                alt="Blood Bank Logistics and Medical Assistance"
+                className="w-full h-full  group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
 
-        {/* Alert */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="bg-accent/10 border border-accent/30 rounded-lg p-4 mb-12 flex items-start gap-4">
-          <AlertCircle className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
-          <div>
-            <h3 className="font-semibold text-accent mb-1">
-              Emergency Support Available
-            </h3>
-            <p className="text-sm text-foreground/70">
-              If you need urgent blood, contact our emergency hotline:{" "}
-              <span className="font-bold text-accent">1-800-BLOOD-911</span>
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Blood Types Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {bloodTypes.map((blood, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              onClick={() => setSelectedType(blood.type)}
-              whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-              className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
-                selectedType === blood.type
-                  ? "bg-primary/10 border-primary"
-                  : "bg-card border-border hover:border-primary/50"
-              }`}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-3xl font-bold text-foreground">
-                  {blood.type}
-                </h3>
-                <motion.div
-                  animate={
-                    selectedType === blood.type ? { scale: [1, 1.1, 1] } : {}
-                  }
-                  transition={{ duration: 0.6 }}
-                  className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Droplets className="w-4 h-4 text-primary" />
-                </motion.div>
-              </div>
-              <p className="text-sm font-semibold text-foreground mb-2">
-                {blood.desc}
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-foreground/60">Available:</span>
-                <span className="text-sm font-bold text-primary">
-                  {blood.available}
-                </span>
-              </div>
-
-              {/* Selection indicator */}
-              {selectedType === blood.type && (
-                <motion.div
-                  layoutId="selector"
-                  className="mt-4 pt-4 border-t border-primary/30">
-                  <p className="text-xs text-primary font-semibold">
-                    Selected for request
+              {/* Premium Floating Status Badge */}
+              <div className="absolute bottom-5 left-5 right-5 bg-background/60 backdrop-blur-md p-4 rounded-xl border border-border/50 flex items-center gap-3.5 shadow-lg">
+                <div className="bg-primary/10 p-2.5 rounded-lg flex items-center justify-center">
+                  <Droplets className="w-5 h-5 text-primary animate-pulse" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground tracking-tight">
+                    Verified Storage Network
                   </p>
-                </motion.div>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
+                  <p className="text-xs text-muted-foreground/90 mt-0.5">
+                    Real-time emergency tracking active
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        {/* Request Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="bg-card border border-border rounded-lg p-8 max-w-2xl mx-auto">
-          <h3 className="text-2xl font-bold text-foreground mb-6">
-            Submit Blood Request
-          </h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-semibold text-foreground mb-2">
-                Hospital Name
-              </label>
-              <input
-                type="text"
-                placeholder="Enter hospital name"
-                className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary"
-              />
+            {/* Right Side: Informational Core Text */}
+            <div className="flex flex-col justify-center space-y-6 lg:space-y-7">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary self-start px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase">
+                <AlertCircle className="w-3.5 h-3.5 text-primary" /> Emergency
+                Dispatch
+              </div>
+
+              <h2 className="text-4xl sm:text-3xl font-extrabold text-foreground tracking-tight leading-[1.1] text-balance">
+                Need Blood Urgent? <br />
+                <span className="bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent font-semibold">
+                  We bridge the gap instantly.
+                </span>
+              </h2>
+
+              <p className="text-muted-foreground text-base leading-relaxed text-balance">
+                Access our prioritized system linking registered medical
+                facilities directly to neighborhood donor registries. Submit
+                immediate verification credentials to mobilize emergency
+                logistics support.
+              </p>
+
+              {/* Stats Grid Splitter */}
+              <div className="border-t border-border/80 pt-5 flex items-center gap-6 text-xs text-muted-foreground">
+                <div>
+                  <span className="block text-2xl font-black text-foreground tracking-tight mb-0.5">
+                    24/7
+                  </span>{" "}
+                  Dispatch Lines
+                </div>
+                <div className="w-px h-10 bg-border/80" />
+                <div>
+                  <span className="block text-2xl font-black text-foreground tracking-tight mb-0.5">
+                    &lt; 15m
+                  </span>{" "}
+                  Response Time
+                </div>
+              </div>
+
+              {/* Primary Transition Action Button */}
+              <div className="pt-2">
+                <Link to="/request-blood">
+                  <Button
+                    size="lg"
+                    icon={
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    }
+                    iconPosition="end">
+                    Initiate Blood Request
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-semibold text-foreground mb-2">
-                Contact Number
-              </label>
-              <input
-                type="tel"
-                placeholder="Enter contact number"
-                className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-foreground mb-2">
-                Urgency Level
-              </label>
-              <select className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
-                <option>Critical (Within 2 hours)</option>
-                <option>High (Within 6 hours)</option>
-                <option>Normal (Within 24 hours)</option>
-              </select>
-            </div>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="pt-2">
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
-                Submit Request
-              </Button>
-            </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

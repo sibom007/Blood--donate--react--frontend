@@ -1,4 +1,4 @@
-import type { UserRole } from "@/feature/auth/type";
+import type { UserRole } from "@/feature/auth/types";
 import useAuthStore from "@/zustand/auth-zustand";
 import { Navigate, useLocation } from "react-router";
 

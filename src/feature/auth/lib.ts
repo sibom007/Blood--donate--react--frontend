@@ -1,7 +1,7 @@
 
 import { config } from "@/lib/config";
 import axios from "axios";
-import type { BloodTypeValues, TJwtUser } from "./types";
+import type { BloodGroup, TJwtUser } from "./types";
 
 export const getNewAccessToken = async () => {
   const response = await axios.post(
@@ -28,7 +28,7 @@ export const Logout = async () => {
 /**
  * Maps "A_POSITIVE" -> "A+" or "AB_NEGATIVE" -> "AB-"
  */
-export const getBloodTypeLabel = (type?: BloodTypeValues): string => {
+export const getBloodTypeLabel = (type?: BloodGroup): string => {
   if (!type) return "";
 
   const [group, rh] = type.split("_");
