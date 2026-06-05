@@ -1,100 +1,116 @@
-import { motion } from "motion/react";
-import HeroImage from "@/assets/landing-hero.svg";
+"use client";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { HeartHandshakeIcon, UserRoundSearchIcon } from "lucide-react";
-import useAuthStore from "@/zustand/auth-zustand";
+import { Heart } from "lucide-react";
 
-const imageReveal = {
-  initial: { opacity: 0, scale: 0.9, y: 30 },
-  animate: { opacity: 1, scale: 1, y: 0 },
-  transition: { duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
-};
+export function HeroSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-export const HeroSection = () => {
-  const { isAuthenticated } = useAuthStore();
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
-    <section className="relative overflow-hidden mt-10 mb-10  bg-background">
-      {/* Decorative background element for depth */}
-      <div className="absolute top-0 right-0 -z-10 h-150 w-150 rounded-full bg-primary/5 blur-[120px]" />
+    <section
+      id="hero"
+      className="min-h-screen flex items-center justify-center bg-linear-to-br from-background via-background to-accent/5 pt-20 overflow-hidden relative">
+      {/* Animated background elements */}
+      <motion.div
+        animate={{ y: [0, 30, 0] }}
+        transition={{ duration: 4, repeat: 5 }}
+        className="absolute top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl"
+      />
+      <motion.div
+        animate={{ y: [30, 0, 30] }}
+        transition={{ duration: 5, repeat: 5 }}
+        className="absolute bottom-20 left-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl"
+      />
 
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-        {/* LEFT COLUMN: The Hook (7/12) */}
-        <motion.div
-          className="lg:col-span-7 space-y-8"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-            </span>
-            Over 12,000 donors active today
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <motion.div variants={itemVariants} className="mb-6">
+          <div className="inline-flex items-center justify-center gap-2 bg-accent/20 text-muted-foreground px-4 py-2 rounded-full text-sm font-semibold">
+            <Heart className="w-4 h-4" />
+            Save Lives Today
           </div>
+        </motion.div>
 
-          <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-[0.9] text-foreground">
-            Donate Blood. <br />
-            <span className="text-primary italic">Save a Life.</span>
-          </h1>
+        <motion.h1
+          variants={itemVariants}
+          className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-6 text-balance">
+          Donate Blood,{" "}
+          <span className="text-primary bg-linear-to-r from-primary to-accent bg-clip-text">
+            Save Lives
+          </span>
+        </motion.h1>
 
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
-            Every drop matters. Connect with local patients in need and become
-            the hero in someone's story. Fast, secure, and life-changing.
-          </p>
+        <motion.p
+          variants={itemVariants}
+          className="text-lg sm:text-xl text-foreground/70 mb-8 max-w-2xl mx-auto text-balance">
+          One donation can save up to 3 lives. Join our community of heroes who
+          believe in the power of giving.
+        </motion.p>
 
-          <div className="flex flex-wrap gap-4 pt-4">
-            <Button variant={"outline"} className="px-16 py-3">
-              <UserRoundSearchIcon className="size-4" />
-              Find Donor
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row gap-4 justify-center">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base">
+              Start Donating
             </Button>
-            {isAuthenticated ? (
-              <Button>New Feature comming</Button>
-            ) : (
-              <Button className="px-16 py-3">
-                <HeartHandshakeIcon className="size-4" /> Donate
-              </Button>
-            )}
-          </div>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-border text-foreground hover:bg-background font-bold text-base">
+              Learn More
+            </Button>
+          </motion.div>
         </motion.div>
 
-        {/* RIGHT COLUMN: The Visual (5/12) */}
+        {/* Stats */}
         <motion.div
-          className="lg:col-span-5 relative"
-          initial="initial"
-          animate="animate"
-          variants={imageReveal}>
-          {/* The Styled Image Container */}
-          <div className="relative group">
-            <div className="absolute -inset-4 rounded-4xl border-2 border-dashed border-primary/20 group-hover:border-primary/40 transition-colors duration-500" />
-
-            <div className="relative aspect-4/5 overflow-hidden rounded-3xl border border-border bg-muted shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
-              <img
-                src={HeroImage}
-                alt="Blood Donation Illustration"
-                className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
-              />
-
-              {/* Subtle Overlay Gradient */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-
-            {/* Floating Stat Card */}
-            <div className="absolute -bottom-6 -right-6 bg-card p-6 rounded-2xl shadow-xl border border-border animate-bounce-slow">
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary font-bold">85%</span>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest">
-                    Urgency
-                  </p>
-                  <p className="font-bold">AB+ Needed Now</p>
-                </div>
+          variants={itemVariants}
+          className="grid grid-cols-3 gap-4 mt-16 pt-12 border-t border-border">
+          {[
+            { number: "50K+", label: "Lives Saved" },
+            { number: "25K+", label: "Active Donors" },
+            { number: "100+", label: "Blood Banks" },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ y: -5 }}
+              className="bg-card border border-border rounded-lg p-4">
+              <div className="text-2xl sm:text-3xl font-bold text-primary">
+                {stat.number}
               </div>
-            </div>
-          </div>
+              <div className="text-sm text-foreground/60 mt-2">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
-};
+}

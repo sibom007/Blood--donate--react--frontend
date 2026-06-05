@@ -29,11 +29,11 @@ import {
   UrgencyLevel,
   type RequestBloodInput,
 } from "../types";
-import { BloodType } from "@/feature/auth/type";
 import { getBloodTypeLabel } from "@/feature/auth/lib";
 import { getFutureDate } from "@/lib/calculateAge";
 import { useCreateBloodRequest } from "../hooks/use-create-blood-request";
 import { useNavigate } from "react-router";
+import { BloodType } from "@/feature/auth/types";
 
 const steps = ["Blood Info", "Contact", "Hospital", "Additional"];
 
@@ -402,7 +402,7 @@ export default function RequestForm() {
                 ) : (
                   <Button
                     disabled={isPending}
-                    loading={isPending}
+                    isLoading={isPending}
                     type="submit"
                     className="flex-1 sm:flex-none  px-12 ">
                     Submit Request

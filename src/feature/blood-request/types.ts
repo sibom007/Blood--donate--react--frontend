@@ -1,6 +1,14 @@
-import type { Dispatch, SetStateAction } from "react";
 import { z } from "zod";
-import { BloodType } from "../auth/type";
+
+import {
+  BloodGroupSchema,
+  RequestStatusSchema,
+  UrgencySchema,
+  type RequestStatus,
+  type TBloodGroup,
+  type TUrgency,
+} from "./constants";
+import { BloodGroupEnum } from "../auth/types";
 
 export const UrgencyLevel = {
   LOW: "LOW",
@@ -18,7 +26,7 @@ export const RequestBloodSchema = z.object({
     .min(3, { message: "name is to short" })
     .max(50, { message: "Name is to long" }),
 
-  bloodGroup: z.nativeEnum(BloodType),
+  bloodGroup: BloodGroupEnum,
   urgency: z.nativeEnum(UrgencyLevel),
 
   phoneNumber: z
@@ -75,12 +83,8 @@ export const RequestBloodSchema = z.object({
 
 export type RequestBloodInput = z.infer<typeof RequestBloodSchema>;
 
-// queris
-// export type UrgencyLevel = "NORMAL" | "URGENT" | "CRITICAL";
-export type RequestStatus = "PENDING" | "ACCEPTED" | "COMPLETED";
-
 export interface GetRequestsQueryInput {
-  bloodType?: typeof BloodType;
+  bloodType?: typeof BloodGroupEnum;
   urgency?: typeof UrgencyLevel;
   requestStatus?: RequestStatus;
   search?: string;
@@ -90,23 +94,43 @@ export interface GetRequestsQueryInput {
   page?: number;
 }
 
-export type Request = {
+export interface BloodRequest {
   id: string;
-  bloodType: typeof BloodType;
-  phoneNumber: string;
-  dateOfDonation: string;
+  requesterId: string;
+  patientName?: string | null;
+  bloodGroup: TBloodGroup;
+  unitsNeeded: number;
+  urgency: TUrgency;
+  neededAt: Date | string;
+
+  // Location Details
+  city: string;
   hospitalName: string;
   hospitalAddress: string;
-  description?: string;
-  urgency: typeof UrgencyLevel;
-  requestStatus: RequestStatus;
-  donorId?: string | null;
-  donner: { id: true; name: true; phoneNumber: true; bloodType: true };
-  createdAt: string;
-  updatedAt: string;
-};
 
-export type FiltersProps = {
-  query: GetRequestsQueryInput;
-  setQuery: Dispatch<SetStateAction<GetRequestsQueryInput>>;
-};
+  description?: string | null;
+  status: RequestStatus;
+
+  matchedDonorId?: string | null;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+}
+
+//  Filter for  own blood requests
+
+export const filterSchema = z.object({
+  // Search is usually a trimmed string, empty string should be treated as undefined
+  search: z.string().trim().optional().or(z.literal("")),
+
+  // Use the schemas we defined to validate the specific strings
+  bloodGroup: z.union([BloodGroupSchema, z.literal("ALL")]).optional(),
+  status: z.union([RequestStatusSchema, z.literal("ALL")]).optional(),
+  urgency: z.union([UrgencySchema, z.literal("ALL")]).optional(),
+
+  // Date validation
+  date: z.date().optional().nullable(),
+  page: z.number().default(1),
+  limit: z.number().default(6),
+});
+
+export type FilterValues = z.infer<typeof filterSchema>;

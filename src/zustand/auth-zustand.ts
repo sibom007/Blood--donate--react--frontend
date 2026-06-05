@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { TinitialState } from "@/feature/auth/type";
+
 import { Logout } from "@/feature/auth/lib";
+import type { TinitialState } from "@/feature/auth/types";
 
 interface AuthState {
   user: TinitialState["user"];
@@ -10,7 +11,7 @@ interface AuthState {
   isLoading: boolean;
 
   login: (data: TinitialState) => void;
-  logout: () => void;
+  logout: (navigate?: (path: string) => void) => Promise<void>;
   checkAuthStatus: () => void;
 }
 
@@ -40,10 +41,9 @@ const useAuthStore = create<AuthState>()(
           isLoading: false,
         }),
 
-      logout: async () => {
+      logout: async (navigate?: (path: string) => void) => {
         try {
           const res = await Logout();
-
           if (res.status === "done") {
             set({
               user: null,
@@ -51,6 +51,7 @@ const useAuthStore = create<AuthState>()(
               isAuthenticated: false,
               isLoading: false,
             });
+            if (navigate) navigate("/sign-in");
           } else {
             console.warn("Logout failed:", res);
           }

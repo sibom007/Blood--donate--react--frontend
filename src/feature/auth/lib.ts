@@ -1,6 +1,7 @@
-import type { BloodTypeValues, TJwtUser } from "./type";
+
 import { config } from "@/lib/config";
 import axios from "axios";
+import type { BloodTypeValues, TJwtUser } from "./types";
 
 export const getNewAccessToken = async () => {
   const response = await axios.post(
@@ -21,7 +22,7 @@ export const Logout = async () => {
     { withCredentials: true },
   );
 
-  return { status: response.data.data.message };
+  return { status: response.data.data };
 };
 
 /**

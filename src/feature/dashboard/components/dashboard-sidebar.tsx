@@ -26,13 +26,13 @@ import { DashboardUser } from "./dashboard-user";
 const SIDEBAR_DATA = {
   navMain: [
     {
-      name: "Requests",
+      name: "Own Requests",
       url: "/dashboard/all-request",
       icon: GitPullRequestIcon,
     },
     {
-      name: "Inventory",
-      url: "/dashboard/available-blood",
+      name: "Assign Requests",
+      url: "/dashboard/assign-requests",
       icon: PieChart,
     },
     {

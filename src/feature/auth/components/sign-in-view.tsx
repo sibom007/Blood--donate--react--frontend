@@ -5,21 +5,21 @@ import {
   FieldDescription,
 } from "@/components/ui/field";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router";
 import { useSignIn } from "../hooks/use-sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
-import { type SignInInputData, SignInSchema } from "../type";
+import { SignInSchema, type SignInInput } from "../types";
 
 export const SignInView = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { mutate, isPending } = useSignIn();
 
-  const form = useForm<SignInInputData>({
+  const form = useForm<SignInInput>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
       email: "rahim@example.com",
@@ -27,7 +27,7 @@ export const SignInView = () => {
     },
   });
 
-  const onSubmit = async (value: SignInInputData) => {
+  const onSubmit = async (value: SignInInput) => {
     mutate(
       { ...value },
       {
@@ -40,6 +40,9 @@ export const SignInView = () => {
 
   return (
     <div className="w-full max-w-md mx-auto bg-card rounded-xl border shadow-lg p-8">
+      <Link to={"/"}>
+        <Button icon={<ArrowLeft />}>Back</Button>
+      </Link>
       {/* Header */}
       <div className="mb-6 text-center space-y-1">
         <h1 className="text-2xl font-semibold">Welcome Back</h1>
@@ -106,7 +109,7 @@ export const SignInView = () => {
         {/* SUBMIT */}
         <Button
           disabled={isPending}
-          loading={isPending}
+          isLoading={isPending}
           type="submit"
           className="w-full">
           Sign In
@@ -114,7 +117,7 @@ export const SignInView = () => {
       </form>
 
       {/* Footer */}
-      <div className="mt-6 text-center text-sm text-muted-foreground">
+      <div className="mt-3 text-center text-sm text-muted-foreground">
         Don&apos;t have an account?{" "}
         <Link
           to="/sign-up"

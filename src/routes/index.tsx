@@ -3,12 +3,13 @@ import { AuthGuard } from "./middleware";
 
 import LandingLayout from "@/layout/landing-layout";
 
-import LandingPage from "@/pages/landing-page";
 import SignInPage from "@/pages/sign-in-page";
 import SignUpPage from "@/pages/sign-up-page";
-import BloodRequestPage from "@/pages/blood-request-page";
-import DashboardLayout from "@/layout/dashboard-layout";
+import LandingPage from "@/pages/landing-page";
 import AllRequestPage from "@/pages/all-request-page";
+import DashboardLayout from "@/layout/dashboard-layout";
+import BloodRequestPage from "@/pages/blood-request-page";
+import RequestDetail from "@/feature/blood-request/components/request-detail";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,11 @@ export const router = createBrowserRouter([
         path: "all-request",
         element: <AllRequestPage />,
       },
+      {
+        path: "all-request/:id",
+        element: <RequestDetail />,
+      },
+      
     ],
   },
 ]);

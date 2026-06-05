@@ -1,11 +1,12 @@
-import { NavBar } from "@/feature/shared/navbar";
-import type React from "react";
+import { Footer } from "@/feature/landing/components/footer";
+import { Navigation } from "@/feature/landing/components/navigation";
 
 function LandingLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <NavBar />
+      <Navigation />
       {children}
+      <Footer />
     </>
   );
 }

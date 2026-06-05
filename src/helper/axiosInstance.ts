@@ -5,8 +5,9 @@ import axios, {
 } from "axios";
 import useAuthStore from "@/zustand/auth-zustand";
 import { config } from "@/lib/config";
-import type { ApiError } from "./type";
+
 import { getNewAccessToken } from "@/feature/auth/lib";
+import type { ApiError } from "@/types";
 
 export const api = axios.create({
   baseURL: config.backendUrl,

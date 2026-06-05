@@ -19,8 +19,8 @@ import {
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { Logout } from "@/feature/auth/lib";
-import { Link, useLocation } from "react-router";
+
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuthStore from "@/zustand/auth-zustand";
 import { generateAvatar } from "@/lib/utils";
 
@@ -38,9 +38,14 @@ const links = [
 ];
 
 export function DashboardUser() {
+  const navigate = useNavigate();
   const pathname = useLocation().pathname;
-  const { user, isLoading } = useAuthStore();
+  const { user, isLoading, logout } = useAuthStore();
   const avatar = generateAvatar(user?.name || "RedLink");
+
+  const handleLogout = () => {
+    logout(navigate); // Pass the hook result here
+  };
 
   const { isMobile } = useSidebar();
 
@@ -112,7 +117,7 @@ export function DashboardUser() {
               })}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={Logout}>
+            <DropdownMenuItem onClick={() => handleLogout()}>
               <LogOut />
               Logout
             </DropdownMenuItem>
