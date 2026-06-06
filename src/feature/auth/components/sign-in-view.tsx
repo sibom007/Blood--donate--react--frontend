@@ -22,8 +22,8 @@ export const SignInView = () => {
   const form = useForm<SignInInput>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
-      email: "rahim@example.com",
-      password: "Sibom@1234",
+      email: "test1@gmail.com",
+      password: "1234567",
     },
   });
 

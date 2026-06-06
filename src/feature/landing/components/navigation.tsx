@@ -9,6 +9,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { Link } from "react-router";
+import { ThemeToggle } from "../../../components/theme-toggle";
 
 export function Navigation() {
   const { user, isLoading, logout } = useAuthStore();
@@ -61,6 +62,7 @@ export function Navigation() {
 
           {!user || isLoading ? (
             <div className="flex gap-2.5">
+              <ThemeToggle />
               <Link to={"/sign-in"}>
                 <Button icon={<LogInIcon />}>sign-in</Button>
               </Link>
@@ -70,6 +72,7 @@ export function Navigation() {
             </div>
           ) : user ? (
             <div className="flex gap-2.5">
+              <ThemeToggle />
               <Link to={"/dashboard"}>
                 <Button icon={<LayoutDashboardIcon />} isLoading={isLoading}>
                   Dashboard

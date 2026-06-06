@@ -1,4 +1,4 @@
-import { MoreHorizontal, type LucideIcon } from "lucide-react";
+import {  type LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import {
   SidebarGroup,
@@ -47,13 +47,6 @@ export function SidebarLinks({
               </SidebarMenuItem>
             );
           })}
-
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip="More">
-              <MoreHorizontal />
-              <span>More</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

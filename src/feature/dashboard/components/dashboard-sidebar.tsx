@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   GitPullRequestIcon,
   LifeBuoy,
-  Map,
+
   PieChart,
   Send,
 } from "lucide-react";
@@ -27,18 +27,13 @@ const SIDEBAR_DATA = {
   navMain: [
     {
       name: "Own Requests",
-      url: "/dashboard/all-request",
+      url: "/dashboard/own-requests",
       icon: GitPullRequestIcon,
     },
     {
       name: "Assign Requests",
       url: "/dashboard/assign-requests",
       icon: PieChart,
-    },
-    {
-      name: "Logistics",
-      url: "/dashboard/travel",
-      icon: Map,
     },
   ],
   navSecondary: [
@@ -59,14 +54,12 @@ export function DashboardSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="inset" collapsible="icon" {...props}>
+    <Sidebar variant="sidebar" collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link to="/">
-                {/* Using a Lucide icon as a fallback if logo.svg is missing */}
-
                 <img src={"/logo.svg"} alt="" className="size-7" />
 
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -98,7 +91,6 @@ export function DashboardSidebar({
         <DashboardUser />
       </SidebarFooter>
 
-      {/* 2. Added SidebarRail to allow manual resizing/collapsing on desktop */}
       <SidebarRail />
     </Sidebar>
   );

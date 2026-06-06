@@ -24,8 +24,10 @@ import { BloodGroupEnum } from "@/feature/auth/types";
 import { useBloodRequestStore } from "@/zustand/blood-request-zustant";
 import { useEffect } from "react";
 import { useCreateBloodRequest } from "../hooks/use-create-blood-request";
+import { useNavigate } from "react-router";
 
 export default function BloodRequestForm() {
+  const navigate = useNavigate();
   const { mutate, isPending } = useCreateBloodRequest();
   const {
     control,
@@ -65,11 +67,13 @@ export default function BloodRequestForm() {
   }, [selectedDonorId, selectedInventoryId, setValue]);
 
   const onSubmit = async (data: CreateBloodRequestInput) => {
-    console.log(data);
-
-    mutate(data);
-    reset();
-    clearSelections();
+    mutate(data, {
+      onSuccess: () => {
+        reset();
+        clearSelections();
+        navigate("/dashboard/own-requests")
+      },
+    });
   };
 
   const handleAutoFillTestData = () => {

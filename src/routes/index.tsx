@@ -6,10 +6,9 @@ import LandingLayout from "@/layout/landing-layout";
 import SignInPage from "@/pages/sign-in-page";
 import SignUpPage from "@/pages/sign-up-page";
 import LandingPage from "@/pages/landing-page";
-import AllRequestPage from "@/pages/all-request-page";
 import DashboardLayout from "@/layout/dashboard-layout";
 import BloodRequestPage from "@/pages/blood-request-page";
-
+import OwnRequestPage from "@/pages/own-requests-page";
 
 export const router = createBrowserRouter([
   {
@@ -42,13 +41,16 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
 
-    element: <DashboardLayout />,
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
     children: [
       {
-        path: "all-request",
-        element: <AllRequestPage />,
+        path: "own-requests",
+        element: <OwnRequestPage />,
       },
-      
     ],
   },
 ]);

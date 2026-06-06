@@ -3,4 +3,5 @@ export const QUERY_KEYS = {
   OWN_REQUESTS_DETAIL: "own-request-detail",
   AVAILABLE_DONOR: "available-donor",
   AVAILABLE_BLOOD: "available-blood",
+  OWN_BLOOD_REQUESTS: "own-blood-requests",
 } as const;

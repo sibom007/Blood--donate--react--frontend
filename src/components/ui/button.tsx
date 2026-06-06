@@ -94,11 +94,13 @@ function Button({
         className={cn(buttonVariants({ variant, size, className }))}
         aria-busy={isLoading}
         {...props}>
-        {hasIcon && iconPosition === "start" && renderIcon()}
+        
+          {hasIcon && iconPosition === "start" && renderIcon()}
 
-        {children}
+          {children}
 
-        {hasIcon && iconPosition === "end" && renderIcon()}
+          {hasIcon && iconPosition === "end" && renderIcon()}
+      
       </Comp>
     );
   }
