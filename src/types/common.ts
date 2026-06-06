@@ -45,7 +45,7 @@ export type user = {
   updatedAt: Date;
 };
 
-export type bloodRequest = {
+export interface bloodRequest {
   id: string;
   requesterId: string;
   donorId: string | null;
@@ -61,9 +61,11 @@ export type bloodRequest = {
   reason: string | null;
   requiredDate: Date;
   status: RequestStatus;
+  donor?: user | null;
+  requester?: user | null;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
 export type inventory = {
   id: string;
@@ -86,16 +88,51 @@ export type inventory = {
   updatedAt: Date;
 };
 
+
 export type Role = "USER" | "OPERATOR" | "SUPER_ADMIN";
-
 export type UserStatus = "ACTIVE" | "BLOCKED" | "SUSPENDED";
-
 export type RequestStatus =
   | "PENDING"
   | "APPROVED"
   | "REJECTED"
   | "COMPLETED"
   | "CANCELLED";
-
 export type TestStatus = "PENDING" | "TESTED" | "FAILED";
 export type TestResult = "PENDING" | "NEGATIVE" | "POSITIVE";
+
+// 2. Runtime String Maps
+export const ROLE: Record<Role, string> = {
+  USER: "USER",
+  OPERATOR: "OPERATOR",
+  SUPER_ADMIN: "SUPER_ADMIN",
+} as const;
+
+export const USER_STATUS: Record<UserStatus, string> = {
+  ACTIVE: "ACTIVE",
+  BLOCKED: "BLOCKED",
+  SUSPENDED: "SUSPENDED",
+} as const;
+
+export const REQUEST_STATUS: Record<RequestStatus, string> = {
+  PENDING: "PENDING",
+  APPROVED: "APPROVED",
+  REJECTED: "REJECTED",
+  COMPLETED: "COMPLETED",
+  CANCELLED: "CANCELLED",
+} as const;
+
+export const TEST_STATUS: Record<TestStatus, string> = {
+  PENDING: "PENDING",
+  TESTED: "TESTED",
+  FAILED: "FAILED",
+} as const;
+
+export const TEST_RESULT: Record<TestResult, string> = {
+  PENDING: "PENDING",
+  NEGATIVE: "NEGATIVE",
+  POSITIVE: "POSITIVE",
+} as const;
+
+// 3. Helper Arrays for Dropdowns/Select Fields
+export const ROLES_LIST = Object.values(ROLE);  
+export const REQUEST_STATUS_LIST = Object.values(REQUEST_STATUS);

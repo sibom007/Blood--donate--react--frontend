@@ -4,4 +4,5 @@ export const QUERY_KEYS = {
   AVAILABLE_DONOR: "available-donor",
   AVAILABLE_BLOOD: "available-blood",
   OWN_BLOOD_REQUESTS: "own-blood-requests",
+  CHECK_BLOOD_REQUESTS: "check-blood-requests",
 } as const;

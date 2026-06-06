@@ -19,14 +19,14 @@ export default function OwnRequestPage() {
   } = useOwnBloodRequests();
 
   return (
-    <div className="min-h-screen bg-slate-50/50 p-4 md:p-8">
+    <div className="min-h-screen container mx-auto p-4 max-w-6xl space-y-6 mt-5">
       {/* Dashboard Header Context */}
       <div className="max-w-7xl mx-auto mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
             Blood Requests
           </h1>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted-foreground">
             Monitor, track, and manage incoming and historical blood requests.
           </p>
         </div>

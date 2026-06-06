@@ -9,6 +9,9 @@ import LandingPage from "@/pages/landing-page";
 import DashboardLayout from "@/layout/dashboard-layout";
 import BloodRequestPage from "@/pages/blood-request-page";
 import OwnRequestPage from "@/pages/own-requests-page";
+import CheckRequestPage from "@/pages/check-request-page";
+import { Role } from "@/feature/auth/types";
+import { UnauthorizedPage } from "@/pages/unauthorized-page";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +30,10 @@ export const router = createBrowserRouter([
   {
     path: "/sign-in",
     element: <SignInPage />,
+  },
+  {
+    path: "/unauthorized",
+    element: <UnauthorizedPage />,
   },
   {
     path: "/request-blood",
@@ -50,6 +57,14 @@ export const router = createBrowserRouter([
       {
         path: "own-requests",
         element: <OwnRequestPage />,
+      },
+      {
+        path: "check-requests",
+        element: (
+          <AuthGuard requiredRole={Role.OPERATOR || Role.SUPER_ADMIN}>
+            <CheckRequestPage />
+          </AuthGuard>
+        ),
       },
     ],
   },

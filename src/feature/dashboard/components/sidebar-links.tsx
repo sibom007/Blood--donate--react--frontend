@@ -8,28 +8,43 @@ import {
   SidebarMenuItem,
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
+import useAuthStore from "@/zustand/auth-zustand";
+import type { Role } from "@/types";
 
 interface SidebarLinksProps {
-  projects: {
+  routes: {
     name: string;
     url: string;
+    roles: Role[];
     icon: LucideIcon;
   }[];
   label?: string;
 }
 
 export function SidebarLinks({
-  projects,
+  routes,
   label = "Personal",
 }: SidebarLinksProps) {
+  const { user } = useAuthStore();
   const { pathname } = useLocation();
+
+  const filteredRoutes = routes.filter((item) => {
+    // If no roles are specified, anyone can see it
+    if (!item.roles || item.roles.length === 0) return true;
+
+    // If there is no logged-in user, hide role-restricted items
+    if (!user?.role) return false;
+
+    // Check if the user's role is included in the allowed roles array
+    return item.roles.includes(user.role);
+  });
 
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {projects.map((item) => {
+          {filteredRoutes.map((item) => {
             const isActive = pathname === item.url;
 
             return (

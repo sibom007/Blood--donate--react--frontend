@@ -5,6 +5,7 @@ import { Link } from "react-router"; // Use your routing library's link
 import {
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -20,14 +21,17 @@ interface DashboardBottomLinksProps extends React.ComponentPropsWithoutRef<
   typeof SidebarGroup
 > {
   items: BottomLinkItem[];
+  label: string;
 }
 
 export function DashboardBottomLinks({
   items,
+  label,
   ...props
 }: DashboardBottomLinksProps) {
   return (
     <SidebarGroup {...props}>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (

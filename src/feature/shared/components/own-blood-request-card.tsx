@@ -59,7 +59,7 @@ export const BloodRequestCard: React.FC<{ request: bloodRequest }> = ({
     request.status === "CANCELLED" ||
     request.status === "REJECTED";
   return (
-    <div className="flex flex-col justify-between bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-200 p-5 relative overflow-hidden h-full">
+    <div className="flex flex-col justify-between bg-card shadow-sm hover:shadow-md transition-shadow duration-200 p-5 relative overflow-hidden h-full">
       {/* Top Section */}
       <div>
         <div className="flex justify-end items-center gap-1.5 mb-2">

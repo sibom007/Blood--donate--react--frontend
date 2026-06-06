@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  GitPullRequestIcon,
-  LifeBuoy,
-
-  PieChart,
-  Send,
-} from "lucide-react";
+import { CopyCheck, GitPullRequestIcon, LifeBuoy, Send } from "lucide-react";
 import { Link } from "react-router";
 
 import {
@@ -21,22 +15,26 @@ import {
 import { SidebarLinks } from "./sidebar-links";
 import { DashboardBottomLinks } from "./dashboard-bottom-links";
 import { DashboardUser } from "./dashboard-user";
+import { Role } from "@/feature/auth/types";
 
-// 1. Move data to a separate constant or config file for easier maintenance
 const SIDEBAR_DATA = {
-  navMain: [
+  features: [
     {
       name: "Own Requests",
+      roles: [Role.OPERATOR, Role.USER, Role.SUPER_ADMIN],
       url: "/dashboard/own-requests",
       icon: GitPullRequestIcon,
     },
+  ],
+  admins: [
     {
-      name: "Assign Requests",
-      url: "/dashboard/assign-requests",
-      icon: PieChart,
+      name: "Check Requests",
+      roles: [Role.OPERATOR, Role.SUPER_ADMIN],
+      url: "/dashboard/check-requests",
+      icon: CopyCheck,
     },
   ],
-  navSecondary: [
+  system: [
     {
       name: "Support",
       url: "/support",
@@ -78,11 +76,13 @@ export function DashboardSidebar({
 
       <SidebarContent>
         {/* Using the logic-heavy section for main links */}
-        <SidebarLinks projects={SIDEBAR_DATA.navMain} label="Platform" />
+        <SidebarLinks routes={SIDEBAR_DATA.features} label="Features" />
+        <SidebarLinks routes={SIDEBAR_DATA.admins} label="Admins" />
 
         {/* Secondary links pushed to the bottom with mt-auto */}
         <DashboardBottomLinks
-          items={SIDEBAR_DATA.navSecondary}
+          label="system"
+          items={SIDEBAR_DATA.system}
           className="mt-auto"
         />
       </SidebarContent>
